@@ -31,4 +31,5 @@ bpy.data.scenes["Scene"].node_tree.nodes["Switch"].check = False
 
 # render and export data under ./rgb folder
 # you can either use code below or click Render->Render Animation to render & export the images
-#bpy.ops.render.render(animation=True, write_still=False, use_viewport=True, layer="", scene="")
+
+bpy.ops.render.render(animation=True, write_still=False, use_viewport=True, layer="", scene="")

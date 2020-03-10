@@ -34,7 +34,7 @@ bpy.data.scenes["Scene"].objects["background"].hide_render = True
 bpy.data.scenes["Scene"].objects["background.001"].hide_render = True
 
 # turn off bloom & reflection
-#bpy.context.scene.eevee.use_bloom = False
+bpy.context.scene.eevee.use_bloom = False
 bpy.context.scene.eevee.use_ssr = False
 
 # turn off hdri environment light
@@ -70,8 +70,8 @@ colors = {  "chair1" : (0.206629, 0.203046, 1, 1),
             "table1" : (1, 0.954345, 0.045231, 1),
             "table2" : (1, 0.203046, 0.323543, 1),
             "table3" : (0.587632, 1, 0.523543, 1),
-            "floor"  : (1, 0.200000, 0.02000, 1),
-            "wall"   : (0.300000, 0.970000, 1, 1)
+            "floor"  : (0.560032, 0.200000, 0.02000, 1),
+            "wall"   : (0.300000, 0.450000, 0.38000, 1)
             }
 
 # add semantic material for each objects
@@ -115,7 +115,7 @@ bpy.ops.render.render(animation=True, write_still=False, use_viewport=False, lay
 for lamp in lamps:
     lamp.hide_render = False
     
-#bpy.context.scene.eevee.use_bloom = False
+bpy.context.scene.eevee.use_bloom = True
 bpy.context.scene.eevee.use_ssr = True
 bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[1].default_value = backgroundStrength
 bpy.context.scene.view_settings.view_transform = 'Filmic'

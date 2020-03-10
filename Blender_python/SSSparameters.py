@@ -36,7 +36,8 @@ bpy.context.scene.eevee.gtao_distance = 1.0
 bpy.context.scene.eevee.gtao_factor = 1.0
 
 # Bloom (set self-illuminating objects with light)
-bpy.context.scene.eevee.use_bloom = False
+bpy.context.scene.eevee.use_bloom = True
+bpy.context.scene.eevee.bloom_threshold = 3
 # Screen Space Reflection (enable reflection material)
 bpy.context.scene.eevee.use_ssr = True
 bpy.context.scene.eevee.use_ssr_refraction = True

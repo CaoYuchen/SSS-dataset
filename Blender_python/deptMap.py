@@ -28,10 +28,11 @@ bpy.data.scenes["Scene"].node_tree.nodes["Switch"].check = True
 bpy.data.scenes["Scene"].node_tree.nodes["Math"].inputs[1].default_value = 20
 
 # render and export data under ./depth folder
-# you can either use code below or click Render->Render Animation to render & export the images
+# you can either use code below or click Render->Render Animation to render & export the images  
 
-#bpy.ops.render.render(animation=True, write_still=False, use_viewport=False, layer="", scene="")
+#bpy.ops.render.view_show('INVOKE_SCREEN')
+bpy.ops.render.render(animation=True, write_still=False, use_viewport=False, layer="", scene="")
 
 # recover original status
-#bpy.context.scene.view_settings.view_transform = 'Filmic'
-#bpy.data.scenes["Scene"].node_tree.nodes["Switch"].check = False
+bpy.context.scene.view_settings.view_transform = 'Filmic'
+bpy.data.scenes["Scene"].node_tree.nodes["Switch"].check = False

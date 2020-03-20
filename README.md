@@ -34,7 +34,7 @@ Tested on Mac, Windows, Ubuntu 16.04 & 18.04
 
 This toolset supports the generation of RGB-D, Stereo RGB, RGB-IMU dataset, with ground truth of camera trajectories, object 3D models, object poses, semantic segmentation maps and system parameters. 
 
-###Python for Blender
+### Python for Blender
 
 We provide an example of [SSS-room4](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/dataset/blender/room4.blend) (click to download .blend file) with everything set up already. You can swith workspace to `Scripting` in Blender and click `Run Script` with no need to learn Blender. Or you can open `Python Console` in Blender and run examples such as:
 
@@ -60,7 +60,7 @@ If you want to change the scene, you can modify the scene and customize the data
 
 For more indoor scenatio examples and related dataset download, please visit our website [http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html/](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html/) for more details.
 
-###Matlab for Noise Addition
+### Matlab for Noise Addition
 
 We also provide code for both realistic RGB and Depth noise addition with [rgb_noise.m](https://github.com/CaoYuchen/SSS-dataset/blob/master/Noise_matlab/rgb_noise.m) and [depth_noise.m](https://github.com/CaoYuchen/SSS-dataset/blob/master/Noise_matlab/depth_noise.m) repsectively.
 

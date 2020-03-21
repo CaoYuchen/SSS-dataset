@@ -61,10 +61,17 @@ camLeft.data.lens_unit = 'MILLIMETERS'
 # min - max range of camera input, unit is meter[m]
 camLeft.data.clip_start = 0.1
 camLeft.data.clip_end = 1000
+
 # CCD sensor size, unit is milimeter[mm]
 camLeft.data.sensor_width = 35
 # Default has no depth of field, approximately equals to the case with F22
 camLeft.data.dof.use_dof = False
+# Depth of Field
+camLeft.data.dof.use_dof = True
+camLeft.data.dof.aperture_fstop = 22
+# Focus distance
+camLeft.data.dof.focus_distance = 10
+
 
 camRight = bpy.data.objects["CameraRight"]
 # fov, unit is milimeter[mm]
@@ -77,6 +84,11 @@ camRight.data.clip_end = 1000
 camRight.data.sensor_width = 35
 # Default has no depth of field, approximately equals to the case with F22
 camRight.data.dof.use_dof = False
+# Depth of Field
+camRight.data.dof.use_dof = True
+camRight.data.dof.aperture_fstop = 22
+# Focus distance
+camRight.data.dof.focus_distance = 10
 
 # baseline between two camera, unit is meter[m]
 camRight.location[0] = 0.12

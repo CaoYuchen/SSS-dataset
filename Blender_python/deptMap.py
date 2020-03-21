@@ -12,6 +12,8 @@ bpy.context.scene.render.filepath = filename
 
 # use left camera as default to capture depth image
 bpy.context.scene.camera = bpy.data.objects["Camera"]
+# turn off depth of field
+bpy.data.objects["Camera"].data.dof.use_dof = False
 
 # set image format as 16-bit grayscale PNG
 bpy.context.scene.render.image_settings.file_format = 'PNG'

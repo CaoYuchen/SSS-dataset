@@ -65,10 +65,9 @@ camLeft.data.clip_end = 1000
 # CCD sensor size, unit is milimeter[mm]
 camLeft.data.sensor_width = 35
 # Default has no depth of field, approximately equals to the case with F22
-camLeft.data.dof.use_dof = False
 # Depth of Field
 camLeft.data.dof.use_dof = True
-camLeft.data.dof.aperture_fstop = 22
+camLeft.data.dof.aperture_fstop = 11
 # Focus distance
 camLeft.data.dof.focus_distance = 10
 
@@ -83,10 +82,9 @@ camRight.data.clip_end = 1000
 # CCD sensor size, unit is milimeter[mm]
 camRight.data.sensor_width = 35
 # Default has no depth of field, approximately equals to the case with F22
-camRight.data.dof.use_dof = False
 # Depth of Field
 camRight.data.dof.use_dof = True
-camRight.data.dof.aperture_fstop = 22
+camRight.data.dof.aperture_fstop = 11
 # Focus distance
 camRight.data.dof.focus_distance = 10
 

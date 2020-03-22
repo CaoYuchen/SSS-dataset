@@ -2,21 +2,23 @@ clear
 clc
 close all
 
-% img = imread('.\0030.png');
+% img = imread('.\depth.png');
 
-noisyImg = im2double(img) * 20.0;
+D1 = "D:\Learning\Blenders\room_combined\";
+D2 = "depth\";
+Directory = D1+D2;
+dataFiles = dir(fullfile(Directory,'*.png'));
+
+
 sigmaDisp = 0.2;
 sigmaD = 1/2;
 sigmaS = 1/2;
-focalLength_pixel = 24/(35/2) * size(noisyImg,2);
+img = imread(fullfile(Directory,dataFiles(1).name));
+focalLength_pixel = 24/(35/2) * size(img,2);
 baseline = 0.025;
 disparityFactor = baseline * focalLength_pixel * 5;
 depthBaseline = 0.025;
 sigmaDc = 1/8;
-
-
-Directory = 'D:\Learning\Blenders\room3\rgb2\';
-dataFiles = dir(fullfile(Directory,'*.png'));
 
 tic
 
@@ -24,7 +26,7 @@ for i = 1:numel(dataFiles)
 % for i = 30:30
     dataFile = fullfile(Directory, dataFiles(i).name);
     img = imread(dataFile);
-    
+    noisyImg = im2double(img) * 20.0;
     % lateral depth noise
     cannyImg = edge(img, 'Canny');
     [Gmag, Gdir] = imgradient(img);
@@ -60,7 +62,7 @@ for i = 1:numel(dataFiles)
     driftY = cos(Gdir/180*pi) .* mag;
 
     num=floor(max(max(mag)));
-    for i = 1:num  
+    for repeatNumber = 1:num  
         index = find(cannyImg == 1);
         iX = mod(index,size(img,1)) - round(driftX(index),0);
         iX = max(min(iX,ones(size(iX))*size(img,1)),ones(size(iX)));
@@ -95,12 +97,12 @@ for i = 1:numel(dataFiles)
     end
 
     [ix,iy] = find(dcImg==inf);
-    for i=1:size(ix,1)
-        iy_low = max(iy(i)-1,1);
-        iy_high = min(iy(i)+1,size(laterImg,2));
-        val = abs(dcImg(ix(i),iy_low) - dcImg(ix(i),iy_high))/min(dcImg(ix(i),iy_low), dcImg(ix(i),iy_high));
+    for infIndex=1:size(ix,1)
+        iy_low = max(iy(infIndex)-1,1);
+        iy_high = min(iy(infIndex)+1,size(laterImg,2));
+        val = abs(dcImg(ix(infIndex),iy_low) - dcImg(ix(infIndex),iy_high))/min(dcImg(ix(infIndex),iy_low), dcImg(ix(infIndex),iy_high));
         if val < 0.05
-            dcImg(ix(i),iy(i)) = (dcImg(ix(i),iy_low) + dcImg(ix(i),iy_high))/2;
+            dcImg(ix(infIndex),iy(infIndex)) = (dcImg(ix(infIndex),iy_low) + dcImg(ix(infIndex),iy_high))/2;
         end
     end
 
@@ -118,7 +120,8 @@ for i = 1:numel(dataFiles)
     noisyImg = uint16(round(noisyImg / 20 * 65535, 0));
     % imshow(noisyImg)
     
-    imwrite(noisyImg,'./depth_noise/'+dataFiles(i).name,'png');
+    imwrite(noisyImg,D1 + './depth_noise/' + dataFiles(i).name,'png');
+%     imwrite(noisyImg,'./test','png');
     
     toc
 end

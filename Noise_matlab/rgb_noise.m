@@ -11,15 +11,16 @@ Aperture = 11.0;
 shutterTime = 100 * Aperture^2 ./ (ISO * 2.^(9.67-EV));
 orign_shutterTime = 100 * Aperture^2 ./ (ISO * 2.^(9.67-0));
 num = max(round(fps*shutterTime),1);
-sigmaS = 1/10;
+sigmaS = 1/20;
 sigmaC = 1/50;
 sigmaQ = 1/2;
 alpha = shutterTime/orign_shutterTime;
 
 % varies for different scene
 rectifyFactor = 0.3854;
-
-Directory = 'D:\Learning\Blenders\room3\rgb2\';
+D1 = "D:\Learning\Blenders\room_combined\";
+D2 = "rgb2\";
+Directory = D1+D2;
 dataFiles = dir(fullfile(Directory,'*.png'));
 
 tic
@@ -36,7 +37,7 @@ for i = 1:numel(dataFiles)
     noisyImg = alpha*noisyImg/num + normrnd(0,sigmaS * sqrt(alpha*noisyImg/num)) + normrnd(0,sigmaC);
     imgNew = crfGo(noisyImg,crf);  
 %     imshow(imgNew)
-    imwrite(imgNew,'./rgb_noise/'+dataFiles(i).name,'png');
+    imwrite(imgNew, D1 + "rgb_noise\"+dataFiles(i).name,"png");
     
     toc
 end

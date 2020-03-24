@@ -2,9 +2,9 @@ clear
 clc
 close all
 
-% img = imread('.\depth.png');
+% img = imread('.\0002.png');
 
-D1 = "D:\Learning\Blenders\room_combined\";
+D1 = "D:\Learning\Blenders\room4.2\";
 D2 = "depth\";
 Directory = D1+D2;
 dataFiles = dir(fullfile(Directory,'*.png'));
@@ -33,12 +33,12 @@ for i = 1:numel(dataFiles)
 
     X = (repmat([1:size(img,2)],[size(img,1),1]) - size(img,1)/2) / focalLength_pixel;
     Y = (repmat([1:size(img,1)]',[1,size(img,2)]) - size(img,2)/2) / focalLength_pixel;
-    [nX,nY,nZ] = surfnorm(X,Y,noisyImg);
+    [nX,nY,nZ] = surfnorm(X.*noisyImg,Y.*noisyImg,noisyImg);
     % surfnorm(X,Y,noisyImg);
 
     crX = X;
     crY = Y;
-    crZ = zeros(size(noisyImg))+0.024;
+    crZ = ones(size(noisyImg));
 
     form1 = nX .* crX + nY .* crY + nZ .* crZ;
     form2 = sqrt(nX .^2 + nY .^2 + nZ .^2);
@@ -50,8 +50,8 @@ for i = 1:numel(dataFiles)
     % noise = normrnd(0,noise);
 
     laterImg = noisyImg;
-    laterImg(theta>=95)=0;
-    laterImg(cannyImg)=0;
+    laterImg(theta>=82)=0;
+%     laterImg(cannyImg)=0;
     % laterImg = im2double(laterImg) + noise;
     laterImg = uint16(round(laterImg * 65535 / 20.0,0));
     % imshow(laterImg)
@@ -83,42 +83,42 @@ for i = 1:numel(dataFiles)
     laterImg = im2double(laterImg) * 20.0;
 
     % baseline noise
-    dcImg = inf(size(img));
-    disTable = dcImg;
-
-    for r=1:size(laterImg,1)
-        for c=1:size(laterImg,2)
-            disparity_x = depthBaseline * focalLength_pixel / laterImg(r,c) + c;
-            dis_rectified = max(1,disparity_x);
-            dis_rectified2 = min(dis_rectified, size(laterImg,2));
-            disparity_x = round(dis_rectified2);
-            dcImg(r,disparity_x) = min(laterImg(r,c),dcImg(r,disparity_x));
-        end
-    end
-
-    [ix,iy] = find(dcImg==inf);
-    for infIndex=1:size(ix,1)
-        iy_low = max(iy(infIndex)-1,1);
-        iy_high = min(iy(infIndex)+1,size(laterImg,2));
-        val = abs(dcImg(ix(infIndex),iy_low) - dcImg(ix(infIndex),iy_high))/min(dcImg(ix(infIndex),iy_low), dcImg(ix(infIndex),iy_high));
-        if val < 0.05
-            dcImg(ix(infIndex),iy(infIndex)) = (dcImg(ix(infIndex),iy_low) + dcImg(ix(infIndex),iy_high))/2;
-        end
-    end
-
-    dcImg(dcImg==inf)=0;
+%     dcImg = inf(size(img));
+%     disTable = dcImg;
+% 
+%     for r=1:size(laterImg,1)
+%         for c=1:size(laterImg,2)
+%             disparity_x = depthBaseline * focalLength_pixel / laterImg(r,c) + c;
+%             dis_rectified = max(1,disparity_x);
+%             dis_rectified2 = min(dis_rectified, size(laterImg,2));
+%             disparity_x = round(dis_rectified2);
+%             dcImg(r,disparity_x) = min(laterImg(r,c),dcImg(r,disparity_x));
+%         end
+%     end
+% 
+%     [ix,iy] = find(dcImg==inf);
+%     for infIndex=1:size(ix,1)
+%         iy_low = max(iy(infIndex)-1,1);
+%         iy_high = min(iy(infIndex)+1,size(laterImg,2));
+%         val = abs(dcImg(ix(infIndex),iy_low) - dcImg(ix(infIndex),iy_high))/min(dcImg(ix(infIndex),iy_low), dcImg(ix(infIndex),iy_high));
+%         if val < 0.05
+%             dcImg(ix(infIndex),iy(infIndex)) = (dcImg(ix(infIndex),iy_low) + dcImg(ix(infIndex),iy_high))/2;
+%         end
+%     end
+% 
+%     dcImg(dcImg==inf)=0;
 
     % camera axis noise
     for r=1:size(noisyImg,1)
         for c=1:size(noisyImg,2)
             pixcoordinate= [c;r];
             dispDisturbance = normrnd(0,sigmaS,[2,1]);
-            noisyImg(r,c) = disparityFactor / ( disparityFactor /bilinearInt(dcImg,pixcoordinate+dispDisturbance) + normrnd(0,sigmaD) + sigmaDisp);
+            noisyImg(r,c) = disparityFactor / ( disparityFactor /bilinearInt(laterImg,pixcoordinate+dispDisturbance) + normrnd(0,sigmaD) + sigmaDisp);
         end
     end
 
     noisyImg = uint16(round(noisyImg / 20 * 65535, 0));
-    % imshow(noisyImg)
+%     imshow(noisyImg)
     
     imwrite(noisyImg,D1 + './depth_noise/' + dataFiles(i).name,'png');
 %     imwrite(noisyImg,'./test','png');

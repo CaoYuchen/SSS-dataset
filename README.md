@@ -72,6 +72,16 @@ We also provide code for both realistic RGB and Depth noise addition with [rgb_n
 
 ![SSS-dattset-Pipeline](./docs/media/pythonPipeline.png)
 
+## Citation
+When using this dataset in your research, we will be happy if you cite us!
+
+@ARTICLE{<a class="underline" href="https://www.mdpi.com/1424-8220/20/9/2572" target="_blank">Yuchen2020Sensors</a>, <br>
+  author = {Cao Yuchen and Hu Lan and Kneip Laurent}, <br>
+  title = {Representations and Benchmarking of Modern Visual SLAM Systems}, <br>
+  journal = {Sensors}, <br>
+  year = {2020}<br>
+}
+
 ## FAQ
 If you have problems running the pipeline and/or issues with code, you might find useful information or welcome to leave issues in the issue tracker.
 

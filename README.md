@@ -58,7 +58,7 @@ If you want to change the scene, you can modify the scene and customize the data
 
 > Note: For unification of exported 3D models and pose of objects, we define the origin point of object at its bottom center, i.e. geometry center with z=0, y points forward. Make sure imported new objects' origin points are correctly defined. 
 
-For more indoor scenatio examples and related dataset download, please visit our website [http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html/](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html/) for more details.
+For more indoor scenatio examples and related dataset download, please visit our website [http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/SSS@MPL.html) for more details.
 
 ### Matlab for Noise Addition
 

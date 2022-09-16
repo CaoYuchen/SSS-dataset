@@ -36,7 +36,7 @@ This toolset supports the generation of RGB-D, Stereo RGB, RGB-IMU dataset, with
 
 ### Python for Blender
 
-We provide an example of [SSS-room4](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/dataset/blender/room4.blend) (click to download .blend file) with everything set up already. You can swith workspace to `Scripting` in Blender and click `Run Script` with no need to learn Blender. Or you can open `Python Console` in Blender and run examples such as:
+We provide an example of [SSS-room4](http://mpl.sist.shanghaitech.edu.cn/SSSBenchmark/dataset/blender/room4.blend.tar.gz) (click to download .blend file) with everything set up already. You can swith workspace to `Scripting` in Blender and click `Run Script` with no need to learn Blender. Or you can open `Python Console` in Blender and run examples such as:
 
 ```bpy.data.texts["SSSparameters.py"].as_module()```
 
